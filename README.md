@@ -5,7 +5,7 @@
 - サイト名: 大学入学共通テスト試験場MAP
 - URL: https://tochirinuru.com/maps/ueeh/
 
-![lfa_capture_2](https://github.com/tochirinuru/lfa/assets/102892587/6da4416c-ecaa-49e2-bab2-9bf42ee31b41)
+![ueeh_sitte_capture](https://github.com/user-attachments/assets/f9274d1a-c68c-4e29-85ca-4271362d52f3)
 
 ## サイトの概要および詳細
 - 大学共通テストの試験場を地図上にマッピングして表示するサイトです。
