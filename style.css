@@ -1,0 +1,456 @@
+#map{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+}
+
+.sidebarIconToggle {
+	box-sizing: border-box;
+	cursor: pointer;
+	position: absolute;
+	z-index: 99;
+	top: 22px;
+	height: 22px;
+	width: 22px;
+}
+
+.sidebar-toggle {
+	transition: background-color 0.3s;
+	position: fixed;
+	top: 10px;
+	width: 28px;
+	height: 28px;
+	overflow: visible;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 22px;
+	font-weight: bold;
+	color: rgba(0, 0, 0, 1);
+}
+
+.sidebar-toggle:hover {
+	color: rgba(52, 180, 228, 1);
+	cursor: pointer;
+}
+
+input[type="checkbox"]:checked ~ .sidebarIconToggle > .left {
+	transition: background-color 0.3s;
+	transform: rotate(180deg);
+}
+
+.rounded-rect {
+	background: rgba(255, 255, 255, 1);
+	background-clip: padding-box;
+	border-radius: 5px;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebarMenu {
+	left: 0;
+	height: 365px;
+	position: absolute;
+	width: 250px;
+	margin-top: 20px;
+	transform: translateX(-330px);
+	transition: transform 0.3s ease-in-out;
+}
+
+input[type="checkbox"]:checked ~ .sidebarMenu {
+	transform: translateX(0);
+}
+
+.sidebar {
+	position: absolute;
+	top: -6px;
+	bottom: 0;
+	box-shadow: none;
+	z-index: 1;
+	width: 335px;
+	display: flex;
+	flex-direction: column;
+}
+
+.left {
+	left: 10px;
+}
+
+.sidebar-content {
+	position: absolute;
+	width: 95%;
+	height: 95%;
+}
+
+.sidebar-items {
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	line-height: 20px;
+	position: absolute;
+	width: 284px;
+	top: 0;
+	left: 0;
+	padding: 1px 5px 1px 5px;
+}
+
+.sidebar-title {
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 1.5rem;
+	font-weight: bold;
+	line-height: 1.2;
+	text-align: center;
+	padding: 15px 0 10px;
+}
+
+.overview-link {
+	position: relative;
+	display: flex;
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+	justify-content: center;
+	padding: 5px 0 10px;
+}
+
+.overview-iconimg img {
+	vertical-align: -4px;
+	width: 20px;
+	height: 20px;
+}
+
+.sidebar-category {
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+	padding: 10px 0 2px 10px;
+}
+
+.sidebar-items-table {
+	width: 300px;
+	margin: 0 0 0 3px;
+	border: 0.5px solid rgba(150, 150, 150, 1);
+	border-collapse: collapse; 
+}
+
+.sidebar-items-tdata {
+	border: 2.8px solid rgba(200, 200, 200, 1);
+	padding: 5px 5px 5px 10px;
+	position: relactive;
+}
+
+.sidebar-layer-label-year {
+	display: inline-block;
+	position: relative;
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+	float: left;
+	left: 0;
+}
+
+.sidebar-range-label-year {
+	display: block;
+	position: relative;
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+}
+
+.sidebar-range-year {
+	background-color: transparent;
+	position: relactive;
+	width: 260px;
+	margin: 2px 5px 0 5px;
+	cursor: ew-resize;
+	float: left;
+	left: 0;
+}
+
+.sidebar-layer-label {
+	display: inline-block;
+	position: relative;
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+	float: left;
+	left: 0;
+	margin-top: 10px;
+}
+
+.overlay-label {
+	width: 200px;
+}
+
+.layer-control-list {
+	margin-left: 10px;
+	width: 250px;
+}
+
+.sidebar-supplement {
+	position: relactive;
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.7rem;
+	line-height: 1.2;
+	margin-top: 8px;
+}
+
+.infoicon {
+	position: absolute;
+	float: left;
+	right: 0;
+}
+
+.sidebar-close {
+	position: absolute;
+	top: 3px;
+	right: 27px;
+	cursor: pointer;
+}
+
+.popup {
+	display: none;
+}
+
+.popup-open {
+	cursor: pointer;
+}
+
+.popup-overlay {
+	display: none;
+}
+
+.popup:checked ~ .popup-overlay {
+	display: block;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+}
+.popup-window {
+	position: absolute;
+	top: 90px;
+	left: 329px;
+	width: 350px;
+	padding: 5px;
+}
+
+@media screen and (max-width: 599px) {
+	.popup-window {
+		position: absolute;
+		top: 140px;
+		left: 16px;
+		width: 95vw;
+		max-width: 365px;
+		padding: 10px;
+		box-sizing: border-box;
+	}
+}
+
+.popup-title {
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 1.0rem;
+	font-weight: bold;
+	margin: 8px 5px;
+}
+
+.popup-text {
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+	margin: 5px 10px 5px 5px;
+}
+
+.popup-close {
+	position: absolute;
+	top: 0;
+	right: 5px;
+	cursor: pointer;
+}
+
+.iconimg img {
+	width: 20px;
+	height: 20px;
+}
+
+.maplibregl-popup-content {
+	fon-familyt: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+	width: 350px;
+}
+
+.popup-title {
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 1.1rem;
+	font-weight: bold;
+	line-height: 1.4;
+	padding: 5px 5px 2px 5px;
+	border-left: solid 5px #FF4B00;
+	border-bottom: solid 2px #FF4B00;
+	width: 320px;
+}
+
+.popup-table {
+	border: 0px;
+	border-collapse: collapse; 
+	width: 330px;
+}
+
+.popup-trow {
+	border: 1px solid rgba(255, 128, 130, 1);
+	border-width: 1px 0;
+}
+
+.popup-tdata {
+	padding: 5px;
+	line-height: 1.5;
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+	border: 1px solid rgba(255, 255, 255, 1);
+	border-width: 0 4px;
+}
+
+.sbj {
+	background: #FFCABF;
+	border: 1px solid rgba(255, 255, 255, 1);
+	border-width: 4px;
+}
+
+
+
+.page-title {
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 2.0rem;
+	font-weight: bold;
+	text-align: center;
+	padding: 20px 0 10px;
+	line-height: 1
+}
+
+.contents {
+	padding: 20px 0 0;
+}
+
+.contents-table {
+	border: 1px solid rgba(255, 75, 0, 1);
+	border-collapse: collapse; 
+	margin: auto;
+}
+
+.contents-data {
+	border: 1px solid rgba(255, 75, 0, 1);
+	padding: 15px 20px 0;
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+}
+
+.contents-title {
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 1.0rem;
+	font-weight: bold;
+	text-align: center;
+}
+
+.contents-list {
+	padding-left: 0;
+	line-height: 1.5;
+}
+
+.contents-item {
+	list-style: none;
+	line-height: 1.5;
+}
+
+.overview {
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+	width: 1000px;
+	margin: auto;
+}
+
+.subtitle_1 {
+	font-size: 1.3rem;
+	font-weight: bold;
+	padding: 8px 8px 8px 15px;
+	border-left: solid 5px #FF4B00;
+	border-bottom: solid 2px #FF4B00;
+	margin: 50px 0 10px;
+	background: #FFCABF;
+}
+
+.subtitle_2 {
+	font-size: 1.1rem;
+	font-weight: bold;
+	padding: 5px 5px 5px 10px;
+	border-left: solid 3px #FF4B00;
+	margin: 30px 0 10px;
+}
+
+.overview-table {
+	border-collapse: collapse;
+}
+
+.overview-trow {
+	border: 1px solid rgba(255, 128, 130, 1);
+	border-width: 1px 0;
+}
+
+.overview-thead {
+	background-color: #FFCABF;
+	font-weight: bold;
+	text-align: center;
+	border: 1px solid rgba(255, 255, 255, 1);
+	border-width: 4px;
+}
+
+.overview-tdata {
+	padding: 5px 10px;
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+	line-height: 1.5;
+	border: 1px solid rgba(255, 255, 255, 1);
+	border-width: 0 4px;
+}
+
+.overview-list {
+	padding: 2px 0 2px 5px;
+	margin-left: 10px;
+	line-height: 1.5;
+}
+
+.overview-sbj {
+	background: #FFCABF;
+	border: 1px solid rgba(255, 255, 255, 1);
+	border-width: 4px;
+}
+
+
+.overview-list img {
+	width: 20px;
+	height: 20px;
+}
+
+.table-list {
+	padding: 0;
+	margin-left: 8px;
+	line-height: 1.5;
+}
+
+.table-img {
+	text-align: center;
+}
+
+@media screen and (max-width: 959px) {
+	.overview {
+		font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+		font-size: 0.9rem;
+		width: 100%;
+		margin: auto;
+	}
+
+	.pcview {
+		display :none;
+	}
+}
+
+.copyright {
+	font-family: "BIZ UDPGothic", "Hiragino Sans", sans-serif;
+	font-size: 0.9rem;
+	text-align: center;
+	padding: 30px 0;
+}

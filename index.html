@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8" />
+	<title>大学入学共通テスト試験場MAP</title>
+	<meta name="description" content="大学入学共通テスト試験場を地図上にマッピングしたサイトです。" />
+	<link href="style.css" rel="stylesheet" />
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<!-- Bootstrap JS Bundle -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootbox.js -->
+	<script src="https://cdn.jsdelivr.net/npm/bootbox@5.5.2/bootbox.min.js"></script>
+	<!-- MapLibre GL JS -->
+	<link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" />
+	<script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+</head>
+<body oncopy="return false" onContextmenu="return false">
+	<div id="map"></div>
+	<div id="layerControl">
+		<!-- サイドバートグル表示設定 -->
+		<input type="checkbox" class="openSidebarMenu" id="openSidebarMenu" checked="checked">
+		<label for="openSidebarMenu" class="sidebarIconToggle">
+			<div class="sidebar-toggle rounded-rect left">&gt;</div>
+		</label>
+	<!-- サイドバー表示設定 -->
+	<div class="sidebarMenu">
+		<div class="sidebar left">
+			<div class="sidebar-content rounded-rect flex-top">
+				<div class="sidebar-items top">
+					<div class="sidebar-title">大学入学共通テスト<br>試験場MAP</div>
+					<div class="overview-link overview-iconimg"><a href="./overview.html" title="サイト情報" target="_blank"><img src="./img/infoicon.png" alt="サイト情報"></a>&nbsp;<a href="./overview.html" title="サイト情報" target="_blank">このサイトについて</a></div>
+					<div class="sidebar-category">▼&nbsp;共通テスト試験場</div>
+					<table class="sidebar-items-table">
+						<!-- 表示年度スライダー -->
+						<tr>
+							<td class="sidebar-items-tdata">
+								<div class="sidebar-layer-label-year">表示年度: 
+									<label id="year_label"></label>年度
+								</div>
+								<div class="sidebar-range-label-year">
+									<input class="sidebar-range-year" id="slider_year" type="range" list="tlist" min="2014" max="2025" step="1" value="2025" alt="表示年度" title="表示年度">
+									<datalist id="tlist">
+										<option value="2014">
+										<option value="2015">
+										<option value="2016">
+										<option value="2017">
+										<option value="2018">
+										<option value="2019">
+										<option value="2020">
+										<option value="2021">
+										<option value="2022">
+										<option value="2023">
+										<option value="2024">
+										<option value="2025">
+									</datalist>
+								</div>
+								<div class="sidebar-layer-label overlay-label">
+								<label for="cbueeh">
+									<input type="checkbox" class="layer-indication" id="cbueeh" onchange="switchlayer('ueeh')">&nbsp;試験場名ラベル表示</a>
+								</label>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="sidebar-category">▼&nbsp;背景レイヤ</div>
+					<table class="sidebar-items-table">
+						<tr>
+							<td class="sidebar-items-tdata">
+					<select name="layer-control" onChange="changeMap(this.value)" class="layer-control-list">
+						<option value="gsi_blank">地理院 白地図</option>
+						<option value="gsi_pale" selected>地理院 淡色地図</option>
+						<option value="gsi_std">地理院 標準地図</option>
+						<option value="gsi_photo">地理院 空中写真</option>
+						<option value="osm_std">OpenStreetMap</option>
+					</select>
+					<div class="sidebar-supplement">
+						※ズームレベル10.5以上は「地理院 白地図」レイヤのみの表示となります。
+					</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<label class="sidebar-close" for="openSidebarMenu">
+				<svg width="10" height="10" xmlns="http://www.w3.org/2000/svg">
+					<line x1="0" y1="0" x2="10" y2="10" stroke="black" stroke-width="2"></line>
+					<line x1="0" y1="10" x2="10" y2="0" stroke="black" stroke-width="2"></line>
+				</svg>
+			</label>
+		</div>
+	</div>
+	<script src="main.js"></script>
+</body>
+</html>
