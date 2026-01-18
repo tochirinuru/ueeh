@@ -1,17 +1,84 @@
-// ページ読み込み時メッセージ表示
-document.addEventListener('DOMContentLoaded', function () {
-	bootbox.alert({
-		message: "大学入学共通テストの受験生は、大学入試センターから指定された（各自の受験票に記載された）試験場で受験してください。",
-		title: "注意",
-		closeButton: false
-	});
+// ページ読み込み時「サイトの利用にあたって」メッセージ表示
+document.addEventListener('DOMContentLoaded', async function () {
+	// 同意済みかチェック
+	const agreedAt = localStorage.getItem('termsAgreedAt');
+	if (agreedAt) {
+		const agreedTime = parseInt(agreedAt, 10);
+		const now = Date.now();
+		const hoursSinceAgreed = (now - agreedTime) / (1000 * 60 * 60);
+
+		// 24時間以内なら表示しない
+		if (hoursSinceAgreed < 24) {
+			return;
+		}
+	}
+
+	try {
+		const response = await fetch('./terms.html');
+		const termsContent = await response.text();
+
+		const messageContent = `
+			<div class="terms-container" id="termsContainer">
+				${termsContent}
+			</div>
+			<div class="terms-agreement">
+				<label class="agreement-label">
+					<input type="checkbox" id="agreeCheckbox" disabled>
+					<span>注意事項および免責事項に同意する</span>
+				</label>
+			</div>
+		`;
+
+		const dialog = bootbox.alert({
+			message: messageContent,
+			title: "利用規約",
+			closeButton: false,
+			size: 'large',
+			buttons: {
+				ok: {
+					label: 'サイトを利用する'
+				}
+			},
+			callback: function () {
+				if (!document.getElementById('agreeCheckbox').checked) {
+					return false;
+				}
+				// 同意日時を保存
+				localStorage.setItem('termsAgreedAt', Date.now().toString());
+			}
+		});
+		
+		dialog.on('shown.bs.modal', function () {
+			const termsContainer = document.getElementById('termsContainer');
+			const agreeCheckbox = document.getElementById('agreeCheckbox');
+			const okButton = dialog.find('.bootbox-accept');
+
+			okButton.prop('disabled', true);
+
+			termsContainer.addEventListener('scroll', function () {
+				const isScrolledToBottom = 
+					termsContainer.scrollHeight - termsContainer.scrollTop - termsContainer.clientHeight < 5;
+
+				if (isScrolledToBottom) {
+					agreeCheckbox.disabled = false;
+				}
+			});
+
+			agreeCheckbox.addEventListener('change', function () {
+				okButton.prop('disabled', !this.checked);
+			});
+		});
+
+	} catch (error) {
+		console.error('「サイトの利用にあたって」の読み込みに失敗しました:', error);
+	}
 });
 
 // ベースマップ表示設定
 const map = new maplibregl.Map({
 	container: 'map',
 	minZoom: 4,
-	maxZoom: 14,
+	maxZoom: 13.5,
 	center: [136.08, 35.52],
 	zoom: 5,
 	hash: true,
@@ -60,12 +127,12 @@ const map = new maplibregl.Map({
 			ueeh_s: {
 				type: 'geojson',
 				data: './geofiles/ueeh_s.geojson',
-				maxzoom: 14
+				maxzoom: 13.6
 			},
 			ueeh_c: {
 				type: 'geojson',
 				data: './geofiles/ueeh_c.geojson',
-				maxzoom: 14
+				maxzoom: 13.6
 			}
 		},
 		layers: [
@@ -74,7 +141,7 @@ const map = new maplibregl.Map({
 				type: 'raster',
 				source: 'gsi_blank',
 				minzoom: 4,
-				maxzoom: 14.1,
+				maxzoom: 13.6,
 			},
 			{
 				id: 'gsi_pale',
@@ -211,18 +278,34 @@ switchlayer = function (lname) {
 	}
 };
 
-// フィルタスライダー設定
+// フィルタスライダー（年度表示）設定
+const yearLabels = {
+	2014: '平成26年度大学入試センター試験',
+	2015: '平成27年度大学入試センター試験',
+	2016: '平成28年度大学入試センター試験',
+	2017: '平成29年度大学入試センター試験',
+	2018: '平成30年度大学入試センター試験',
+	2019: '平成31年度大学入試センター試験',
+	2020: '令和2年度大学入試センター試験',
+	2021: '令和3年度大学入学共通テスト',
+	2022: '令和4年度大学入学共通テスト',
+	2023: '令和5年度大学入学共通テスト',
+	2024: '令和6年度大学入学共通テスト',
+	2025: '令和7年度大学入学共通テスト',
+	2026: '令和8年度大学入学共通テスト'
+};
+
 function filterBy(year) {
 	const filter_year = ['==', 'year', year];
 	map.setFilter('ueeh_c', filter_year);
 	map.setFilter('ueeh_s', filter_year);
 
-	document.getElementById('year_label').textContent = year.toString();
+	document.getElementById('year_label').textContent = yearLabels[year] || year + '年度';
 };
 
 // フィルタスライダー初期表示
 map.on('load', function () {
-	filterBy(2025);
+	filterBy(2026);
 	document.getElementById('slider_year').addEventListener('input', function (e) {
 		const year = parseInt(e.target.value, 10);
 		filterBy(year);
